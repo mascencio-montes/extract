@@ -1,0 +1,27 @@
+EXTRACTOR SANTANDER REPORTOS - AUTOMATION ANYWHERE A360
+
+1. Instalar Python 3.10+ y dependencias:
+   py -m pip install pymupdf artifact-tool
+
+2. Guardar extractor_santander.py en C:\RPA\SANTANDER\
+
+3. Ejecutar carpeta raíz, incluyendo subcarpetas por mes:
+   py "C:\RPA\SANTANDER\extractor_santander.py" "C:\RPA\SANTANDER\REPORTOS"
+
+   O seleccionar salida independiente:
+   py "C:\RPA\SANTANDER\extractor_santander.py" "C:\RPA\SANTANDER\REPORTOS" --salida "C:\RPA\SALIDAS\SANTANDER"
+
+4. Salidas: operaciones_santander.csv, operaciones_santander.json,
+   operaciones_santander.xlsx, incidencias.json, resultado_ejecucion.json.
+
+5. Automation Anywhere: usar Run/Program File (o Run Script según versión)
+   ejecutable: C:\Windows\py.exe o ruta completa python.exe
+   argumentos: "C:\RPA\SANTANDER\extractor_santander.py" "C:\RPA\SANTANDER\REPORTOS"
+   Esperar fin del proceso; código 0 = correcto; 1 = revisar; 2 = error de configuración.
+   Leer resultado_ejecucion.json para contar operaciones y revisar incidencias.
+
+IMPORTANTE: versión basada en estructura de PDFs Santander de enero 2026.
+Los archivos PDF adjuntos no estuvieron montados en el runtime para pruebas integrales.
+El script está probado con un ejemplo textual representativo, NO validado con PDFs reales.
+No incorpora OCR de imágenes: los PDFs sin texto quedan marcados para revisión.
+Para uso financiero, validar contra comprobantes originales antes de cargar en sistemas.
