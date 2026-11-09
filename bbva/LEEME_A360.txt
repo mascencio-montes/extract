@@ -1,0 +1,20 @@
+EXTRACTOR BBVA - Automation Anywhere A360
+========================================
+1) Instalar Python 3.10+ en el equipo donde corre Bot Agent.
+2) Ejecutar en PowerShell/cmd:
+   py -m pip install pymupdf openpyxl
+3) Copiar extractor_bbva.py a C:\RPA\BBVA\extractor_bbva.py
+4) Colocar PDFs en C:\RPA\BBVA\Entrada
+5) Probar:
+   py "C:\RPA\BBVA\extractor_bbva.py" "C:\RPA\BBVA\Entrada"
+6) En A360 utilizar la acción Run application / Ejecutar aplicación:
+   Programa: ruta completa de python.exe (obtener con: py -c "import sys;print(sys.executable)")
+   Argumentos: "C:\RPA\BBVA\extractor_bbva.py" "C:\RPA\BBVA\Entrada"
+   Esperar finalización y revisar código de salida (0=OK; 1=errores/revisar; 2=carpeta inválida/sin PDF).
+7) Leer C:\RPA\BBVA\Entrada\Resultados\estado.json y los CSV para continuar.
+8) --salida "C:\RPA\BBVA\Salida" permite otra carpeta de resultados.
+9) --recursivo procesa subcarpetas.
+
+NOTAS: Diseñado para el formato BBVA Fideicomisos de Terceros mostrado en los ejemplos.
+No requiere Document Automation ni nube. PDFs escaneados se marcan como error: OCR no implementado.
+El programa NO modifica los PDF de origen. Si hay advertencias de cuadre o faltantes, se marca REVISAR.
