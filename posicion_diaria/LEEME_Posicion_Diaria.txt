@@ -1,0 +1,30 @@
+SANTANDER - POSICION DIARIA - EXTRACTOR LOCAL PARA A360
+=====================================================
+
+Instalacion en Windows:
+  py -m pip install pdfplumber
+
+Ejemplo de ejecucion:
+  py extractor_posicion_diaria.py "C:\RPA\SANTANDER\POSICION DIARIA" --salida "C:\RPA\RESULTADOS\POSICION_DIARIA"
+
+Procesa de forma recursiva las carpetas 1. Enero, 2. Febrero, etc.
+Salidas: resumen.csv, resultados.csv, posiciones.csv, reportos.csv, movimientos.csv, fiscal.csv,
+auditoria.csv, resultado_ejecucion.json.
+
+Codigos de salida:
+  0: sin alertas
+  1: hay documentos para revisar o no hay PDFs
+  2: uno o mas documentos fallaron
+
+IMPORTANTE:
+- Cada PDF representa una fotografia de la cartera al corte, no un movimiento nuevo.
+- Las posiciones se conservan por fecha de corte. NO sumar valores de cartera de todos los dias.
+- Los movimientos se repiten de forma acumulativa y se deduplican por cuenta, fecha, folio y concepto.
+- Si el mismo folio/concepto contiene mas de un renglon real, validar manualmente la clave unica.
+- La seccion de movimientos se guarda con detalle_original para conservar evidencia, sin asignar
+  automaticamente columnas de cargo/abono cuando el texto plano no ofrece certeza suficiente.
+- En un PDF con fecha del archivo distinta de la fecha de corte, prevalece el PERIODO impreso.
+- Algunos PDF pueden estar escaneados y requieren OCR externo; este programa NO incorpora OCR.
+- Revisar auditoria.csv y cotejar los totales antes de usar en produccion.
+- Version inicial basada en estructura de los PDF; requiere validacion de precision sobre los archivos
+  reales en el entorno del bot antes de considerarse lista para produccion.
